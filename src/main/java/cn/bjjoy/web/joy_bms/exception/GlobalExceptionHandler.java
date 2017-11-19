@@ -20,6 +20,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = OperationException.class)
     public ResponseResult operationExceptionHandler(OperationException oe){
+        LOGGER.error(oe.getData());
         LOGGER.error(oe.getMessage());
         return new ResponseResult(ResponseCode.SYSTEM_ERROR, ResponseCode.SYSTEM_ERROR_TEXT);
     }
