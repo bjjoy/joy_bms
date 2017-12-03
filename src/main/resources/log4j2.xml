@@ -10,7 +10,7 @@
         <pattern>%d %p %C{1.} [%t] %X %m%n</pattern>
       </PatternLayout>
     </Console>
-    <RollingFile name="RollingFile" fileName="${log-path}/auth_service.log" filePattern="${log-path}/auth_service-%d{yyyy-MM-dd}-%i.log" >
+    <RollingFile name="RollingFile" fileName="${log-path}/joy_bms.log" filePattern="${log-path}/joy_bms-%d{yyyy-MM-dd}-%i.log" >
       <PatternLayout>
         <charset>utf-8</charset>
         <pattern>%d %p %C{1.} [%t] %X %m%n</pattern>
@@ -22,10 +22,6 @@
     </RollingFile>
   </Appenders>
   <Loggers>
-    <Logger name="cn.bjjoy.service.auth.persistence.dao" level="debug" additivity="false">
-      <AppenderRef ref="RollingFile"/>
-      <AppenderRef ref="Console" />
-    </Logger>
     <Root level="info">
       <AppenderRef ref="RollingFile"/>
       <AppenderRef ref="Console" />
