@@ -1,7 +1,7 @@
 package cn.bjjoy.web.joy_bms.exception;
 
 /**
- * Created by GXM on 2017/11/15
+ * Created by bjjoy on 2017/11/15
  **/
 public class OperationException extends Exception {
 

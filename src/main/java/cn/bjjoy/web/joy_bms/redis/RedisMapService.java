@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by GXM on 2017/12/3
+ * Created by bjjoy on 2017/12/3
  **/
 @Service
 public class RedisMapService {

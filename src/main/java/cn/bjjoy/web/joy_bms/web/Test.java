@@ -1,27 +1,24 @@
 package cn.bjjoy.web.joy_bms.web;
 
 import cn.bjjoy.web.joy_bms.auth.service.CurrentUser;
+import cn.bjjoy.web.joy_bms.auth.service.AuthUserService;
 import cn.bjjoy.web.joy_bms.base.ResponseCode;
 import cn.bjjoy.web.joy_bms.base.ResponseResult;
-import cn.bjjoy.web.joy_bms.dto.UserDto;
 import cn.bjjoy.web.joy_bms.exception.OperationException;
 import cn.bjjoy.web.joy_bms.redis.RedisMapService;
 import cn.bjjoy.web.joy_bms.service.AuthHttpService;
-import cn.bjjoy.web.joy_bms.service.BaseHttpService;
-import com.alibaba.fastjson.JSONObject;
-import okhttp3.*;
+import cn.bjjoy.web.joy_bms.util.DataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by GXM on 2017/11/9
+ * Created by bjjoy on 2017/11/9
  **/
 @RestController
 @RequestMapping("/test")
@@ -32,6 +29,9 @@ public class Test {
 
     @Autowired
     RedisMapService redisMapService;
+
+    @Autowired
+    AuthUserService authUserService;
 
     @RequestMapping(value = "/getUserList", method = RequestMethod.GET)
     public ResponseResult getUserList(String name) throws OperationException {
@@ -54,6 +54,12 @@ public class Test {
 
     }
 
+    @RequestMapping(value = "/getCurrentUser", method = RequestMethod.GET)
+    public ResponseResult getCurrentUser(@RequestParam Map param) throws Exception{
+        return new ResponseResult(null, ResponseCode.OK, ResponseCode.OK_TEXT, authUserService.getCurrentUser());
+
+    }
+
     @RequestMapping(value = "/redis/set", method = RequestMethod.POST)
     public ResponseResult set(@RequestParam Map param) throws Exception{
         CurrentUser currentUser = new CurrentUser();
@@ -64,9 +70,10 @@ public class Test {
 
     }
 
-    @RequestMapping(value = "/redis/get", method = RequestMethod.POST)
+    @RequestMapping(value = "/redis/get", method = RequestMethod.GET)
     public ResponseResult get(@RequestParam Map param) throws Exception{
-        return new ResponseResult(null, ResponseCode.OK, ResponseCode.OK_TEXT, redisMapService.get("redisGetTest"));
+        CurrentUser user = DataUtils.getData(redisMapService.get("redisGetTest"), CurrentUser.class);
+        return new ResponseResult(null, ResponseCode.OK, ResponseCode.OK_TEXT, user);
     }
 
     @RequestMapping(value = "/redis/setExpire", method = RequestMethod.GET)

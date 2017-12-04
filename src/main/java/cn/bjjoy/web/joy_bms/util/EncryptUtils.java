@@ -12,7 +12,7 @@ import java.security.SecureRandom;
 import java.util.Random;
 
 /**
- * @author gxm 2017/11/05
+ * @author bjjoy 2017/11/05
  */
 public class EncryptUtils {
 

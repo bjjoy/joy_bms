@@ -3,7 +3,7 @@ package cn.bjjoy.web.joy_bms.auth.service;
 import java.util.Date;
 
 /**
- * Created by GXM on 2017/11/28
+ * Created by bjjoy on 2017/11/28
  **/
 public class CurrentUser {
 

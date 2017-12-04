@@ -1,7 +1,7 @@
 package cn.bjjoy.web.joy_bms.base;
 
 /**
- * Created by GXM on 2017/11/5
+ * Created by bjjoy on 2017/11/5
  **/
 public class ResponseCode {
 

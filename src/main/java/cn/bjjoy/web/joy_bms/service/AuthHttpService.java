@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by GXM on 2017/11/13
+ * Created by bjjoy on 2017/11/13
  **/
 @Service
 @ConfigurationProperties(prefix = "joy.service")

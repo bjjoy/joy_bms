@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * Created by GXM on 2017/11/9
+ * Created by bjjoy on 2017/11/9
  **/
 public abstract class BaseHttpService{
 
