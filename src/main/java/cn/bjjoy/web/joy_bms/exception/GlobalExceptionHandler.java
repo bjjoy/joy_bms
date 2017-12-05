@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = OperationException.class)
     public ResponseResult operationExceptionHandler(OperationException oe){
         LOGGER.error(oe.getData());
-        LOGGER.error(oe.getMessage());
+        LOGGER.error(oe.getMessage(), oe);
         return new ResponseResult(oe.getCode(), oe.getMsg());
     }
 
