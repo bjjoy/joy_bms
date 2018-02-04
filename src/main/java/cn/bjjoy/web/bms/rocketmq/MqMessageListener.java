@@ -8,6 +8,7 @@ import com.alibaba.rocketmq.common.message.MessageExt;
 import java.util.List;
 
 /**
+ * 创建consumer需要的messageListener
  * @author bjjoy
  * @date 2018/2/4
  **/

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import java.io.UnsupportedEncodingException;
 
 /**
+ * 具体消费信息处理过程，例更新数据库
  * @author bjjoy
  * @date 2018/2/4
  **/

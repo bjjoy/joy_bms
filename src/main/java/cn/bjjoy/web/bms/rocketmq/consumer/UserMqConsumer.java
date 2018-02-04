@@ -10,11 +10,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
+ * 用户相关mq消费，需要定义自己的属性
  * @author bjjoy
  * @date 2018/2/3
  **/
 @Configuration
-@ConfigurationProperties(prefix = "joy.rocketmq")
+@ConfigurationProperties(prefix = "joy.rocketmq.user")
 public class UserMqConsumer extends BaseMqConsumer {
 
     private final String consumerGroup = "user_group";
@@ -25,6 +26,9 @@ public class UserMqConsumer extends BaseMqConsumer {
 
     private final String subExpression = "TagA";
 
+    /**
+     * 实际消息处理过程
+     */
     @Autowired
     UserMqMessageService userMqMessageService;
 
