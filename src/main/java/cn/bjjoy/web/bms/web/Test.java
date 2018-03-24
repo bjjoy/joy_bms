@@ -5,7 +5,7 @@ import cn.bjjoy.web.bms.auth.service.AuthUserService;
 import cn.bjjoy.web.bms.base.ResponseCode;
 import cn.bjjoy.web.bms.base.ResponseResult;
 import cn.bjjoy.web.bms.exception.OperationException;
-import cn.bjjoy.web.bms.redis.RedisMapService;
+import cn.bjjoy.web.bms.redis.RedisPojoService;
 import cn.bjjoy.web.bms.http.service.AuthHttpService;
 import cn.bjjoy.web.bms.util.DataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,7 @@ public class Test {
     AuthHttpService authHttpService;
 
     @Autowired
-    RedisMapService redisMapService;
+    RedisPojoService redisPojoService;
 
     @Autowired
     AuthUserService authUserService;
@@ -65,37 +65,28 @@ public class Test {
         CurrentUser currentUser = new CurrentUser();
         currentUser.setLoginName("战三");
         currentUser.setMobile("333333");
-        redisMapService.set("redisGetTest", currentUser,1800);
+        redisPojoService.set("redisGetTest", currentUser,1800);
         return new ResponseResult(null, ResponseCode.OK, ResponseCode.OK_TEXT, "");
 
     }
 
     @RequestMapping(value = "/redis/get", method = RequestMethod.GET)
     public ResponseResult get(@RequestParam Map param) throws Exception{
-        CurrentUser user = DataUtils.getData(redisMapService.get("redisGetTest"), CurrentUser.class);
+        CurrentUser user = DataUtils.getData(redisPojoService.get("redisGetTest"), CurrentUser.class);
         return new ResponseResult(null, ResponseCode.OK, ResponseCode.OK_TEXT, user);
     }
 
     @RequestMapping(value = "/redis/setExpire", method = RequestMethod.GET)
     public ResponseResult setExpire(@RequestParam Map param) throws Exception{
-        this.redisMapService.setExpire("redisGetTest", 1800);
+        this.redisPojoService.setExpire("redisGetTest", 1800);
         return new ResponseResult(null, ResponseCode.OK, ResponseCode.OK_TEXT, "");
     }
 
     @RequestMapping(value = "/redis/delete", method = RequestMethod.POST)
     public ResponseResult delete(@RequestParam Map param) throws Exception{
-        redisMapService.delete("redisGetTest");
+        redisPojoService.delete("redisGetTest");
         return new ResponseResult(null, ResponseCode.OK, ResponseCode.OK_TEXT, "");
     }
 
-    @RequestMapping(value = "/geta", method = RequestMethod.GET)
-    public ResponseResult geta() throws Exception{
-        return new ResponseResult(null, ResponseCode.OK, ResponseCode.OK_TEXT, authUserService.getA());
-    }
 
-    @RequestMapping(value = "/seta", method = RequestMethod.GET)
-    public ResponseResult seta(@RequestParam("a") String a) throws Exception{
-        authUserService.setA(a);
-        return new ResponseResult(null, ResponseCode.OK, ResponseCode.OK_TEXT, a);
-    }
 }

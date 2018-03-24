@@ -8,13 +8,13 @@ import org.springframework.stereotype.Service;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by bjjoy on 2017/12/3
+ * @author bjjoy
  **/
 @Service
-public class RedisMapService {
+public class RedisPojoService {
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private RedisTemplate<String, Object> redisTemplate;
 
     public void set(String key, Object object){
         ValueOperations<String, Object> operations=redisTemplate.opsForValue();
@@ -41,5 +41,10 @@ public class RedisMapService {
 
     public void setExpire(String key, long seconds){
         redisTemplate.expire(key, seconds, TimeUnit.SECONDS);
+    }
+
+    public long increment(String key, long i){
+        ValueOperations<String, Object> operations = redisTemplate.opsForValue();
+        return operations.increment(key, i);
     }
 }

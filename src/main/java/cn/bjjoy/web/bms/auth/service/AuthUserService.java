@@ -1,6 +1,6 @@
 package cn.bjjoy.web.bms.auth.service;
 
-import cn.bjjoy.web.bms.redis.RedisMapService;
+import cn.bjjoy.web.bms.redis.RedisPojoService;
 import cn.bjjoy.web.bms.util.DataUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,15 +10,15 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 
 /**
- * Created by bjjoy on 2017/11/28
+ * @author bjjoy
+ * @date 2017/11/28
  **/
 @Service
 public class AuthUserService {
 
     @Autowired
-    RedisMapService redisMapService;
+    RedisPojoService redisPojoService;
 
-    private String a;
     /**
      * 获取当前sessionId对应用户信息
      * @return CurrentUser
@@ -26,7 +26,7 @@ public class AuthUserService {
     public CurrentUser getCurrentUser(){
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String sessionId = request.getSession().getId();
-        CurrentUser currentUser = DataUtils.getData(redisMapService.get(sessionId), CurrentUser.class);
+        CurrentUser currentUser = DataUtils.getData(redisPojoService.get(sessionId), CurrentUser.class);
         return currentUser;
     }
 
@@ -37,7 +37,7 @@ public class AuthUserService {
     public void putUserToRedis(CurrentUser currentUser){
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String sessionId = request.getSession().getId();
-        redisMapService.set(sessionId, currentUser, 1800);
+        redisPojoService.set(sessionId, currentUser, 1800);
     }
 
     /**
@@ -47,14 +47,7 @@ public class AuthUserService {
     public void updateUserTime(){
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String sessionId = request.getSession().getId();
-        redisMapService.setExpire(sessionId, 1800);
+        redisPojoService.setExpire(sessionId, 1800);
     }
 
-    public String getA() {
-        return a;
-    }
-
-    public void setA(String a) {
-        this.a = a;
-    }
 }
